@@ -17,8 +17,8 @@ public class Grid{
     }
 
  
+    //Getter methods
     public Sprite[][] getGrid(){return grid;}
-
     public Sprite getSprite(int x, int y){
         return grid[size - y - 1][x];
     }
@@ -28,10 +28,12 @@ public class Grid{
     }
 
     public void placeSprite(Sprite s, String direction) { //place sprite in a new spot based on direction
+        //Get original position 
         int prevX = s.getX();
         int prevY = s.getY();
-        if (direction.equals("s")){
-            prevY++;
+
+        if (direction.equals("s")){ //Find the direction
+            prevY++; //Change x and y values depending on direction
         }else if (direction.equals("a")){
             prevX++;
         }else if (direction.equals("d")){
@@ -39,14 +41,14 @@ public class Grid{
         }else if (direction.equals("w")){
             prevY--;
         }
-        placeSprite(new Dot(prevX, prevY)); 
-        placeSprite(s);
+        placeSprite(new Dot(prevX, prevY)); //Make the spot the player just left to be an empty dot
+        placeSprite(s); //Put the player on the new position 
     }
 
 
     public void display() { //print out the current grid to the screen 
         for (Sprite[] row : grid){
-            for (Sprite sprite : row) {
+            for (Sprite sprite : row) { //Go through every element in grid and print an image based on what class the element is 
                 if (sprite instanceof Dot) {
                     System.out.print("⬜");
                 } else if (sprite instanceof Player) {
@@ -63,15 +65,15 @@ public class Grid{
                     System.out.print("🎉");
                 }
     }
-    System.out.println();
+    System.out.println(); //Go to next line
 }
 }
     
     public void gameover(){ //use this method to display a loss
         for (int i = 0; i < grid.length; i++){
-            for (int j = 0; j < grid[i].length; j++) { 
+            for (int j = 0; j < grid[i].length; j++) { //Iterate through every element in the grid
                 if (!(grid[i][j] instanceof Player)) {
-                    grid[i][j] = new Lose(i, j);
+                    grid[i][j] = new Lose(i, j); //Change every element to lose which displays skulls
                 }
             }
         }
@@ -79,9 +81,9 @@ public class Grid{
 
     public void win(){ //use this method to display a win 
         for (int i = 0; i < grid.length; i++){
-            for (int j = 0; j < grid[i].length; j++) { 
+            for (int j = 0; j < grid[i].length; j++) { //Iterate through every element in the grid
                 if (!(grid[i][j] instanceof Player)) {
-                    grid[i][j] = new Win(i, j);
+                    grid[i][j] = new Win(i, j); //Change every element to win which displays confetti
                 }
             }
         }
